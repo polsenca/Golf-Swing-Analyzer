@@ -11,6 +11,11 @@ import threading
 import time
 from pathlib import Path
 
+try:
+    from streamlit.runtime.scriptrunner import add_script_run_ctx
+except ImportError:
+    add_script_run_ctx = None
+
 import altair as alt
 import pandas as pd
 import streamlit as st
@@ -229,6 +234,8 @@ if analyze_btn and uploaded and can_analyze:
         args=(tmp_in.name, out_path, handed, model, skip),
         daemon=True,
     )
+    if add_script_run_ctx:
+        add_script_run_ctx(t)
     t.start()
     st.rerun()
 
