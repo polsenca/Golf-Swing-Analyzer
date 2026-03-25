@@ -298,7 +298,7 @@ elif st.session_state.analysis_state == "done" and st.session_state.report:
     c1.metric("Duration", f"{report['duration_seconds']:.1f}s")
     c2.metric("Frame rate", f"{report['fps']:.0f} fps")
     c3.metric("Frames", str(report["total_frames"]))
-    n_issues = len(summary["errors"]) + len(summary["warnings"])
+    n_issues = len(summary["error"]) + len(summary["warning"])
     c4.metric("Issues found", str(n_issues), delta=None)
 
     st.divider()
@@ -329,10 +329,10 @@ elif st.session_state.analysis_state == "done" and st.session_state.report:
         with col_right:
             st.subheader("Score Card")
             sc1, sc2 = st.columns(2)
-            sc1.metric("Errors",   len(summary["errors"]))
-            sc2.metric("Warnings", len(summary["warnings"]))
+            sc1.metric("Errors",   len(summary["error"]))
+            sc2.metric("Warnings", len(summary["warning"]))
             sc3, sc4 = st.columns(2)
-            sc3.metric("Tips",     len(summary["tips"]))
+            sc3.metric("Tips",     len(summary["tip"]))
             sc4.metric("OK",       len(summary["ok"]))
 
             st.divider()
